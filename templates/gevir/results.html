@@ -1,0 +1,87 @@
+{% extends 'gevir/base.html' %}
+
+{% load staticfiles %}
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+{% load django_tables2 %}
+
+{% block title_block %}
+GeVIR - Gene Ranks
+{% endblock %}
+
+{% block body_block %}
+	<div class="container">
+	<div class="row">
+		<div class="col-5">
+			<p>
+			  <button class="btn btn-headers-info" data-toggle="collapse" href="#collapseHeadersHelp" role="button" aria-expanded="false" aria-controls="collapseHeadersHelp">
+			    Explain Table Headers
+			  </button>
+			<a class="btn btn-download-csv" href="{% export_url "csv" %}">
+			    Export Results to CSV
+			</a>
+			<a class="btn btn-clear-search" href="{% url 'clear_gene_search' %}">Clear Search</a>
+			 
+
+			</p>
+		</div>
+		<div class="col-3">
+			<img src="{% static 'images/genes_fe_color_codes.png' %}" alt="Genes Fold Enrichment Color Codes" height="65%"/>
+		</div>	
+		<div class="col-4">
+			{% if filter %}
+			    <form action="" method="get" class="form form-inline">
+			        {% bootstrap_form filter.form layout='inline' %}
+			        {% bootstrap_button 'Filter' %}
+			    </form>
+			{% endif %}
+		</div>
+
+	</div>		
+
+
+
+
+
+
+
+	<div class="collapse" id="collapseHeadersHelp">
+	  <div class="card card-body">
+
+	<div class="row">
+	  <div class="col-md-9">
+	    <ul>
+	        <li><b>Gene Name, Canonical Transcript</b> - gene identifiers from gnomAD database (Build 37)</li>
+	        <li><b>GeVIR %</b> - gene rank measured in percentiles based on Gene Variation Intolerance Ranking (GeVIR)
+	        (low values indicate more variation intolerant genes, which is also true for "LOEUF %" and "VIRLoF %"). 
+	GeVIR is a method which we developed and applied on a list of 19,361 genes to sort them based on number, length and evolutionary conservation of regions without functional variants (i.e. between two missense, loss-of-function, insertion or delition variants) in gnomAD  database (version 2.0.1). Only canonical transcripts were analysed.</li>
+	        <li><b>LOEUF %</b> - gene rank measured in percentiles based gnomAD loss-of-function observed/expected upper bound fraction (LOEUF)
+	        (see Figure 1). For more information about this metric, please read "Constraint" section of 
+	    <a class="file_link" href="https://macarthurlab.org/2018/10/17/gnomad-v2-1/">MacArthur Lab blog post</a>. If you use this metric please cite <a class="file_link" href="https://www.biorxiv.org/content/10.1101/531210v2">gnomAD flagship paper</a> and use most up-to-date values from <a class="file_link" href="http://gnomad.broadinstitute.org/">gnomAD website</a>.
+	        <br /><br />
+	        <img src="{% static 'images/lof_ci_upper.png' %}" alt="LoF observed/expected (o/e) upper Confidence Interval (CI)"/>
+	        <br /><br />
+	        <h6>Figure 1. Screenshot of ELN gene constraint metrics from  <a class="file_link" href="http://gnomad.broadinstitute.org/gene/ENSG00000049540">gnomAD browser</a></h6><b> </b>
+	        <br /></li>
+	        <li><b>VIRLoF %</b> - gene rank measured in percentiles based on both GeVIR and gnomAD LOEUF
+	             (shows the best overall performance, see Figure 2). If you use this metric please cite both GeVIR and <a class="file_link" href="https://www.biorxiv.org/content/10.1101/531210v2">gnomAD flagship paper</a>.
+	        </li>
+	        <li><b>GeVIR AD, LOEUF AD, VIRLoF AD, GeVIR AR, LOEUF AR, VIRLoF AR</b> - to help users interpret gene ranks, we calculated fold enrichment of Autosomal Dominant (AD) and Autosomal Recessive (AR) genes with known molecular basis of disorder in OMIM in a range of +-5% of gene X (see Figure 2). Statistical significant fold enrichements (Fisher Exact Test p-value &lt; 1e-5) are shown in bold in the table.
+	        For example CDK19 gene's GeVIR % is 2.37, so examined range is from 0 (2.37-5, rounded to minimal percentile) to 7.37% (2.37+5). Genes in this range are ~4 times more often (4.05 fold enrichement) associated with AD diseases and ~4 times less often (0.25 fold enrichement) associated with AR diseases. Both enrichment of AD genes and deficiency of AR genes is statistical significant. Thus GeVIR metric adds supportive evidence that CDK19 is more likely to be associated with AD than AR disease. 
+	        <br /><br />
+	        <img src="{% static 'images/WEB_percentiles_ad_ar_fold_enrichemnt_s.png' %}" alt="Gene Percentiles AD AR Fold Enrichment"/>
+	        <br /><br />
+	        <h6>Figure 2. Fold Enrichment of known Autosomal Dominant (AD) and Autosomal Recessive (AR) genes of each gene in the ranked lists (GeVIR, LOEUF, VIRLoF. AD genes are enriched among top ranked genes (lowest percentiles), whereas AR genes are enriched among middle ranked genes (approximetly 35-65 percentiles). Combined metric (VIRLoF, purple) shows the best perfornance, i.e. high ranked genes are more often associated with AD than AR diseases, low ranked genes are less often associated with both AD and AR diseases.</h6>
+	        </li>
+	    </ul> 
+	  </div>
+	</div>
+	  </div>
+	</div>
+	
+
+	{% render_table table %}
+	{% if not_found_gene_identifiers %}
+		Not found genes: {{ not_found_gene_identifiers }}
+	{% endif %}
+{% endblock %}

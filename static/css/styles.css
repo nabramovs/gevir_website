@@ -1,0 +1,267 @@
+/*
+ * Globals
+ */
+
+@media (min-width: 48em) {
+  html {
+    font-size: 18px;
+  }
+}
+
+body {
+  /*font-family: Georgia, "Times New Roman", Times, serif;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #555;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #333;
+}
+
+
+/*
+ * Override Bootstrap's default container.
+ */
+
+.container {
+  max-width: 60rem;
+  min-width: 90rem;
+}
+
+/*
+ * Masthead for nav #95836f
+ */
+
+.blog-masthead {
+  margin-bottom: 3rem;
+  background-color: #5c7943;
+  -webkit-box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
+          box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
+}
+
+/* Nav links #cfb69b */
+.nav-link {
+  position: relative;
+  padding: 1rem;
+  font-weight: 500;
+  color: #abcb42;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+/* Active state gets a caret at the bottom */
+.nav-link.active {
+  color: #fff;
+}
+.nav-link.active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -.3rem;
+  vertical-align: middle;
+  content: "";
+  border-right: .3rem solid transparent;
+  border-bottom: .3rem solid;
+  border-left: .3rem solid transparent;
+}
+
+
+/*
+ * Blog name and description
+ */
+
+.blog-header {
+  margin-bottom: 0.5rem;
+}
+
+.blog-title {
+  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+.blog-description {
+  font-size: 1.1rem;
+  color: #999;
+}
+
+@media (min-width: 40em) {
+  .blog-title {
+    font-size: 3.5rem;
+  }
+}
+
+
+/*
+ * Main column and sidebar layout
+ */
+
+/* Pagination */
+.blog-pagination {
+  margin-bottom: 4rem;
+}
+
+.blog-pagination > .btn {
+  border-radius: 2rem;
+}
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+  padding: 0.5rem 0;
+  color: #999;
+  text-align: center;
+  border-top: .05rem solid #e5e5e5;
+}
+
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+/* All links */
+a.file_link:link {
+  color: #5c7943;
+}
+
+/* visited link */
+a.file_link:visited {
+  color: #5c7943;
+}
+
+/* mouse over link */
+a.file_link:hover {
+  color: #abcb42;
+}
+
+/* selected link  #cfb69b*/
+a.file_link:active {
+  color: #abcb42;
+}
+
+
+/*
+ * Table
+ */
+
+ /* unvisited link #95836f*/
+a.table_header:link {
+  color: black;
+  text-align: center;
+}
+
+/* visited link */
+a.table_header:visited {
+  color: black;
+  text-align: center;
+}
+
+/* mouse over link */
+a.table_header:hover {
+  color: #5c7943;
+  text-align: center;
+}
+
+/* selected link  #cfb69b*/
+a.table_header:active {
+  color: #5c7943;
+  text-align: center;
+}
+
+/* pagination */
+.page-link2 {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #0275d8;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+
+/* change table and pagination colour */
+#gene_scores_table{
+  color: black;
+}
+
+.page-link{
+  color: black;
+}
+
+.btn-headers-info {
+    color: #000;
+    background-color: #feae17;
+    border-color: #feae17;
+}
+
+.btn-download-csv {
+    color: #fff;
+    background-color: #5c7943;
+    border-color: #5c7943;
+}
+
+.btn-download-csv:hover {
+    color: #fff;
+}
+
+.btn-download-csv:visited {
+    color: #fff;
+}
+
+.btn-download-csv:active {
+    color: #fff;
+}
+
+.btn-clear-search{
+    color: #fff;
+    background-color: #f35001;
+    border-color: #f35001;
+}
+
+.btn-clear-search:hover {
+    color: #fff;
+}
+
+.btn-clear-search:visited {
+    color: #fff;
+}
+
+.btn-clear-search:active {
+    color: #fff;
+}
+
+.btn {
+  border: none;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {opacity: 1}
+
+
+.filter_form{
+  width: 100px;
+}

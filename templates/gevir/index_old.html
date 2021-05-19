@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+	<head>
+		<title>GeVIR</title>
+	</head>
+	<body>
+		<h1>GeVIR says...</h1>
+		<div>
+			hey there partner! <br />
+		<strong>{{ boldmessage }}</strong><br />
+		</div>
+		<div>
+			<a href="/gevir/about/">About</a><br />
+			<img src="{% static 'images/how_gevir_works.png' %}"
+			alt="GeVIR Method" width="50%"/>
+		</div>
+	</body>
+</html>

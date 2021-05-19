@@ -1,0 +1,13 @@
+{% extends 'gevir/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+GeVIR - Download
+{% endblock %}
+
+{% block body_block %}
+<a class="file_link" href="{% static 'files/gene_ranking.csv' %}">Gene Ranking Table (19,361 genes)</a>
+<br />
+<a class="file_link" href="{% static 'files/virs.zip' %}">Varian Intolerant Regions (>4 million)</a>
+
+{% endblock %}

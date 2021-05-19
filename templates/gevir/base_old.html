@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+	<head lang="en">
+		<meta charset="UTF-8" />
+		<title>GeVIR -
+			{% block title_block %}
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		<img src="{% static 'images/gevir_banner.png' %}" alt="GeVIR Banner"/>
+		<div>
+			<ul>
+				<li><a href="{% url 'index' %}">Search</a></li>
+				<li><a href="{% url 'results' %}">Gene Ranks</a></li>
+				<li><a href="{% url 'faq' %}">FAQ</a></li>
+				<li><a href="{% url 'download' %}">Download</a></li>
+			</ul>
+		</div>
+		<hr />
+		<!-- Page specific content goes here -->
+		<div>
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		
+	</body>
+</html>

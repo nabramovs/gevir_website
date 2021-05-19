@@ -1,0 +1,43 @@
+{% extends 'gevir/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+GeVIR - FAQ
+{% endblock %}
+
+{% block body_block %}
+
+<h3>Frequently Asked Questions</h3>
+<!--
+<br/>
+<h5>What do all these metrics mean?</h5>
+Gene Variation Intolerance Ranking (GeVIR) is a method which we developed and applied on a list of 18,352 genes to sort them based on relative intolerance to variation. Genes with lower GeVIR percentile (GeVIR %) are expected to be more intolerant to variation and thus more likely to be associated with dominant diseases. LoF % were calculated by sorting the same gene list by gnomAD Loss-of-Function observer/expected upper Confidence Interval. Genes with lower LoF % are expected to be more intolerant to LoF variants and thus more likely to be haploinsufficient. We found these metrics to be complementary and combined them into a third ranked list (GeVIR+LoF %). Overall percentile (%) metrics represent how gene X is intolerant to variants comparing with all other genes in a list. To help users interpret percentile metrics for each gene X in a list we calculated fold enrichment of Autosomal Dominant (AD) and Autosomal Recessive (AR) genes with known molecular basis of disorder in <a class="file_link" href="https://omim.org/help/faq">OMIM</a> in a range of +-5% of gene X. For example CDK19 gene's GeVIR % is 2.37, so examined range is from 0 to 7.37%. Genes in this range are ~4 times more often (4.05 fold enrichement) associated with AD diseases and ~4 times less often (0.25 fold enrichement) associated with AR diseases. Thus CDK19 can be a good cadidate gene for AD disease.
+<br/>
+-->
+<br/>
+<h5>Is GeVIR just a modified gnomAD constraint score (e.g. pLI, observed/expected)?</h5>
+No, GeVIR is based on a different hypothesis and is complementary to gnomAD constraint metrics. GnomAD constraint scores estimate expected number of variants from specific group (e.g. LoF or missense) and compares it with observed number of variants in a gene. These metrics do not consider how variants are distribution within a gene. Oppositely, GeVIR is based on the idea that long conservative regions without any functional variants (e.g. LoF, missense, INDELs) might indicate important genes even if other parts of these genes are enriched with variants. Thus gnomAD constraint metrics prioritise genes with low overall number of variants, whereas GeVIR prioritise genes with long variantion intolerant regions. For more information please read our paper.
+<br/><br/>
+<h5>I can't find gene X, why there is no rank for it?</h5>
+We calculated ranks only for genes with "valid" canonical transcript (starts with Met, ends with stop codon, CDS is divisible by 3) according to Ensembl build 37 annotation. Therefore gene X might had a different name/ID in Ensembl build 37 or it did not have "valid" canonical transcript.</a>
+<br/><br/>
+<!--
+<h5>When should I use GeVIR and when should I use gnomAD constraint scores?</h5>
+We found that GeVIR prioritise known disease associated genes better than gnomAD Missense z-score or Missense observed/expected, and performed comparable to gnomAD LoF observed/expected, referred here as . However, since GeVIR and LoF observed/expected are based on different ideas, they also prioritise different genes. GeVIR was less biased by gene length (i.e. more effectively prioritised short intolerant genes). Since GeVIR method is based on analyses of regions without any functional variants (e.g. LoF, missense, INDELs) and majority of variants gnomAD database are missense we expect that GeVIR it more represents gene intolerance to missense variants, than LoF. Thus we suggest to use GeVIR when disease candidate variants are missense and gnomAD LoF observed/expected when disease candidate variants are LoF. Combined metric (GeVIR+LoF o/e) showed best performance in our evaluation and can be used in large scale analysis when genes have to be sorted based on potential importance or intolerance. 
+-->
+<h5>When should I use GeVIR and when should I use gnomAD constraint scores?</h5>
+GeVIR can be used to prioritise candidate genes intolerant to missense variants, especially if they are short. LOEUF is recommended to prioritise candidate genes intolerant to LoF variants, especially if they are long, although, GeVIR might be more useful with short genes, for which LOEUF cannot be confidently estimated. VIRLoF can be used when a single metric is required as it shows the best performance of all the variant-based gene constraint metrics assessed.
+<br/><br/>
+<h5>Is GeVIR based on Constraint Coding Regions (CCRs) study data/method?</h5>
+No, but it is based on the same idea. GeVIR, same as <a class="file_link" href="https://www.nature.com/articles/s41588-018-0294-6">Constrained Coding Regions (CCRs) map</a>, analyse regions without protein coding variants in gnomAD database. However, while CCRs study shows that novel variants in such regions are more likely to be deleterious (i.e. CCRs complement variant prioritisation methods such as <a class="file_link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC168916/">SIFT</a> or <a class="file_link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2855889/">PolyPhen-2</a>), GeVIR shows that these regions represent deviation from equal variant distribution, expected under absence of natural selection (i.e. GeVIR is an alternative to gene missense variation intolerance metrics, such as <a class="file_link" href="https://www.nature.com/articles/ng.3050">Missense Z-score).</a> Moreover, we used more strict coverage filters than CCR study and adjusted variant intolerant region weights by evolutionary conservation (measured by mean <a class="file_link" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1001025">GERP++ score</a>) to reduce the number of false positive regions. Finally, GeVIR gene score is calculated based on ALL gene variant intolerant regions and not only the longest one (a method described in CCRs study). This approached allowed to more precisely prioritise dominant genes and create continious metric which can also be used to prioritise recessive genes.
+<br/><br/>
+<h5>My disease candidate gene is variant intolerant accordint to GeVIR (i.e. low gene percentile), but my candidate disease causing variant is not located in a variant intolerant region (i.e. high region percenile). Does GeVIR still supports my hypothesis?</h5>
+It adds evidence that your candidate gene might be intolerant to variation and consequently be associated with some disease, but not that your particular variant is disease causing. However, it also does not disprove your hypothesis. We found that missense disease causing variants were ~3 times more often observed in very long variant intolerant regions (>20 amino acids), comparing with short regions (1-5 amino acids). However, only ~10% of pathogenic missense variants were located inside such regions and more than half of the studied pathogenic missense variants were located in very short regions (1-5 amino acids). Moreover, we did not observe this trend among LoF pathogenic variants, which in most cases are expected to be deleterious irregardles of their location inside protein. Thus while candidate missense variant location inside a long variant intolerant region might be used as a supporting evidence of its pathogenicity, location outside these regions should not be used as an evidence that variant is benign. For example, there are multiple long variant intolerant regions in <a class="file_link" href="http://gnomad.broadinstitute.org/gene/ENSG00000120948">TARDBP</a> gene, but all known disease causing variants are located outside them, which leads to a speculative hypothesis that deleterious changes inside such regions might result in more severe or even lethal phenotypes.
+<br/><br/>
+<h5>How to contact GeVIR?</h5>
+Please contact us by email: gevirank@gmail.com 
+<br/><br/>
+<h5>Why are there antlers on GeVIR logo?</h5>
+"Gevir" means "Antlers" in Norwegian :)
+<br/><br/>
+{% endblock %}

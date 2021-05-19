@@ -1,0 +1,22 @@
+{% extends 'gevir/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+GeVIR
+{% endblock %}
+
+{% block body_block %}
+	
+	<form method="post" align="center">
+		List of gene identifiers (one per line):<br />
+		{% csrf_token %}
+		{{ form }}
+		<br />
+		Examples: ELN, ENSG00000123154, ENST00000301071
+		<br /><br />
+		<input type="submit" value="SEARCH" class="btn btn-danger"/>
+	</form>
+
+<br/><br/>
+<p>GeVIR metrics were generated using <a class="file_link" href="https://gnomad.broadinstitute.org/">gnomAD</a> data. We thank gnomAD and the groups that provided exome and genome variant data to this resource. A full list of contributing groups can be found <a class="file_link" href="https://gnomad.broadinstitute.org/about">here</a>.</p>
+{% endblock %}
